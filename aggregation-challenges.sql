@@ -125,5 +125,79 @@ WHERE lat_n>38.7780
 ORDER BY lat_n ASC
 LIMIT 1;
 
+# AGGREGATE - WEATHER OBSERVATION STATION 17
 
+# Query the western longitude (long_w) where the smallest northern latitude (lat_n) in STATION is greater than 38.7780. Round your answer to 4 decimal places. 
+
+SELECT ROUND(long_w,4)
+FROM station
+WHERE lat_n>38.7780
+ORDER BY lat_n ASC
+LIMIT 1;
+
+
+# AGGREGATE - WEATHER OBSERVATION STATION 18
+
+# Consider P1(a,b) and P2(c,d) to be two points on a 2D plane.
+	-- a happens to equal the minimum value in northern latitude (lat_n in STATION)
+	-- b happens to equal the minimum value in western longitude (long_w in STATION)
+	-- c happens to equal the maximum value in northern latitute (long_w in STATION)
+	-- d happens to equal the maximum value in western longitude (long_w in STATION)
+	
+# Query the Manhattan Distance between points P1 and P2 and round it to a scale of 4 decimal places. 
+
+# Manhattan distance is the distance between two points measured along axes at right angles -- |x1 - x2| + |y1 - y2|
+
+SELECT ROUND(
+								(ABS
+										(MIN(lat_n) - MAX(lat_n)
+								))
+
+								+ 
+								(ABS
+										(MIN(long_w) - MAX(long_w)
+									)),4)
+FROM station;
+
+
+# AGGREGATE - WEATHER OBSERVATION STATION 19
+
+# Consider P1(a,c) and P2(b,d) to be two points on a 2D plane where (a,b) are the respective minimum and maximum values of northern latitude (lat_n) and (c,d) are the respective minimum and maximum values of western longitude (long_w) in STATION.
+
+# Query the Euclidean Distance between points P1 and P2 and format your answer to display 4 decimal digits.
+
+# Euclidean Distance  - equals the SQUARE ROOT of (a-b) squared + (c-d) squared
+
+SELECT ROUND(
+                SQRT(
+                      POWER(((MIN(lat_n))-(MAX(lat_n))),2)+
+                      POWER(((MIN(long_w)-MAX(long_w))),2)),4) 
+FROM station;
+
+
+
+# AGGREGATE - WEATHER OBSERVATION STATION 20
+
+# Query the median of the northern latitudes (lat_n) from STATION and round your answer to 4 decimal places. 
+
+SELECT 
+
+FROM (SELECT 
+
+				WHERE (COUNT(lat_n)/2%) = 0
+				OR 
+				WHERE (COUNT(lat_n)/2%) = 0
+WHERE toal
+ORDER BY lat_n ASC
+FROM STATION;
+
+SELECT AVG(dd.val) as median_val
+FROM (
+SELECT d.val, @rownum:=@rownum+1 as `row_number`, @total_rows:=@rownum
+  FROM data d, (SELECT @rownum:=0) r
+  WHERE d.val is NOT NULL
+  -- put some where clause here
+  ORDER BY d.val
+) as dd
+WHERE dd.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) );
 
